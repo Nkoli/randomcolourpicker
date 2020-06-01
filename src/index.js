@@ -1,10 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Button } from './Button';
 // import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 class Random extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            colour: [120, 90, 255]
+        }
+        this.handleClick=this.handleClick.bind(this);
+    }
+
     componentDidMount() {
         this.applyColour();
     }
@@ -35,12 +44,21 @@ class Random extends React.Component {
         return random;
     }
 
+    handleClick() {
+        this.setState({
+            colour: this.chooseColour()
+        });
+    }
+
     render() {
         return (
             <div>
                 <h1 className={this.isLight() ? 'white' : 'black' }>
-
+                    Your colour is {this.formatColour(this.state.colour)}!
                 </h1>
+                <Button
+                light={this.isLight()}
+                onClick={this.handleClick}/>
             </div>
         );
     }
